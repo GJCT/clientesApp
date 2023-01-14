@@ -1,0 +1,7 @@
+.footer{
+    position: flex;
+    bottom: 0px;
+    height: 60px;
+    width: 100%;
+    text-align-last: right;
+}
