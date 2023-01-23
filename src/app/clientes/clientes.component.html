@@ -1,8 +1,15 @@
-<div class="card text-bg-secondary mb-3">
+<app-detalle *ngIf="clienteSelect" [cliente]="clienteSelect"></app-detalle>
+<div class="card text-bg-secondary mb-3 mt-3">
     <div class="card-header">Clientes</div>
     <div class="card-body">
       <h5 class="card-title">Lista de clientes:</h5>
-      <table class="table table-bordered table-striped">
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">Crear cliente</button>
+      </div>
+      <div *ngIf="clientes?.length == 0" class="alert alert-info">
+        No hay registro en la base de datos!
+      </div>
+      <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
         <thead>
             <tr>
                 <th>Id:</th>
@@ -10,17 +17,36 @@
                 <th>Apellido:</th>
                 <th>Email:</th>
                 <th>Fecha:</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let cliente of cliente">
-                <th>{{cliente.id}}</th>
-                <th>{{cliente.nombre}}</th>
-                <th>{{cliente.apellido}}</th>
-                <th>{{cliente.email}}</th>
-                <th>{{cliente.createAt}}</th>
+            <tr *ngFor="let cliente of clientes">
+                <td><button class="btn btn-rounded btn-success" type="button" (click)="abrirModal(cliente)">{{cliente.id}}</button></td>
+                <td>{{cliente.nombre}}</td>
+                <td>{{cliente.apellido | uppercase}}</td>
+                <td>{{cliente.email}}</td>
+                <td>{{cliente.createAt | date:"EEE d, MMM, yyyy"}}</td>
+                <td>
+                  <button type="button" 
+                          name="editar"
+                          class="btn btn-info"
+                          [routerLink]="['/clientes/form', cliente.id]">
+                          Editar
+                  </button>
+                </td>
+                <td>
+                  <button type="button" 
+                          name="eliminar"
+                          class="btn btn-danger"
+                          (click)="delete(cliente)">
+                          Eliminar
+                  </button>
+                </td>
             </tr>
         </tbody>
       </table>
+      <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
     </div>
   </div>

@@ -1,7 +1,8 @@
 .footer{
-    position: flex;
+    position: relative;
     bottom: 0px;
     height: 60px;
     width: 100%;
-    text-align-last: right;
+    text-align-last: left;
+    margin-top: 100%;
 }
